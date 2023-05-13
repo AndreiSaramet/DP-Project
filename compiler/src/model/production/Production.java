@@ -15,7 +15,7 @@ public interface Production {
     List<? extends Symbol> rightSide();
 
     static String sideToString(final List<? extends Symbol> side) {
-        Objects.requireNonNull(side, "A side of a production must not be null");
+        Objects.requireNonNull(side, String.format("A side of a %s must not be null", Production.class.getName()));
         final StringBuilder builder = new StringBuilder();
         if (side.isEmpty()) {
             builder.append(EPSILON);
@@ -25,5 +25,9 @@ public interface Production {
                     .forEach(builder::append);
         }
         return builder.toString();
+    }
+
+    static void validateSide(final List<? extends Symbol> side) {
+        Objects.requireNonNull(side, String.format("A side of a %s must not be null", Production.class.getName()));
     }
 }

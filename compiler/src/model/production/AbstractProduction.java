@@ -11,8 +11,8 @@ public abstract class AbstractProduction implements Production {
     private final List<? extends Symbol> rightSide;
 
     public AbstractProduction(final List<? extends Symbol> leftSide, final List<? extends Symbol> rightSide) {
-        Objects.requireNonNull(leftSide);
-        Objects.requireNonNull(rightSide);
+        Production.validateSide(leftSide);
+        Production.validateSide(rightSide);
 
         this.leftSide = leftSide;
         this.rightSide = rightSide;
