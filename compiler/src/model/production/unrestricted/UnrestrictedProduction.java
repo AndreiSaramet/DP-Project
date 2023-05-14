@@ -11,13 +11,13 @@ public interface UnrestrictedProduction extends Production {
     }
 
     static void validateLeftSide(final List<? extends Symbol> leftSide) {
-        Production.validateSide(leftSide);
+        Production.validateLeftSide(leftSide);
         if (leftSide.isEmpty()) {
-            throw new IllegalArgumentException(String.format("Left side of %s must not be empty", UnrestrictedProduction.class.getName()));
+            throw new IllegalArgumentException(String.format("The left side of %s must not be empty", UnrestrictedProduction.class.getName()));
         }
     }
 
     static void validateRightSide(final List<? extends Symbol> rightSide) {
-        Production.validateSide(rightSide);
+        Production.validateRightSide(rightSide);
     }
 }
