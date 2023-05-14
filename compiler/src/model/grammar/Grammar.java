@@ -18,10 +18,15 @@ public interface Grammar<T extends Production> {
 
     boolean containsSymbol(final Symbol symbol);
 
+    boolean containsSymbol(final String symbol);
 
     boolean containsNonTerminal(final Symbol symbol);
 
+    boolean containsNonTerminal(final String symbol);
+
     boolean containsTerminal(final Symbol symbol);
+
+    boolean containsTerminal(final String symbol);
 
     boolean containsProduction(final Production production);
 }

@@ -9,14 +9,14 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class GrammarImpl<T extends Production> implements Grammar<T> {
-    protected final Collection<? extends NonTerminal> nonTerminalCollection;
+    private final Collection<? extends NonTerminal> nonTerminalCollection;
 
-    protected final Collection<? extends Terminal> terminalCollection;
+    private final Collection<? extends Terminal> terminalCollection;
 
 
-    protected final Collection<? extends T> productionCollection;
+    private final Collection<? extends T> productionCollection;
 
-    protected final NonTerminal startNonTerminal;
+    private final NonTerminal startNonTerminal;
 
     public GrammarImpl(Collection<? extends NonTerminal> nonTerminalSet, Collection<? extends Terminal> terminalSet, Collection<? extends T> productionSet, NonTerminal startNonTerminal) {
         Objects.requireNonNull(nonTerminalSet, String.format("The set of %s must not be null", NonTerminal.class.getName()));
@@ -59,8 +59,18 @@ public class GrammarImpl<T extends Production> implements Grammar<T> {
     }
 
     @Override
+    public boolean containsSymbol(String symbol) {
+        return this.hasNonTerminal(symbol) || this.hasTerminal(symbol);
+    }
+
+    @Override
     public boolean containsNonTerminal(Symbol nonTerminal) {
         return this.hasNonTerminal(nonTerminal);
+    }
+
+    @Override
+    public boolean containsNonTerminal(String symbol) {
+        return this.hasNonTerminal(symbol);
     }
 
     @Override
@@ -69,12 +79,25 @@ public class GrammarImpl<T extends Production> implements Grammar<T> {
     }
 
     @Override
+    public boolean containsTerminal(String symbol) {
+        return this.hasTerminal(symbol);
+    }
+
+    @Override
     public boolean containsProduction(Production production) {
         return this.productionCollection.contains(production);
     }
 
+    private boolean hasNonTerminal(String symbol) {
+        return this.nonTerminalCollection.stream().anyMatch(el -> symbol.equals(el.value()));
+    }
+
     private boolean hasNonTerminal(Symbol symbol) {
         return symbol instanceof NonTerminal && this.nonTerminalCollection.contains(symbol);
+    }
+
+    private boolean hasTerminal(String symbol) {
+        return this.terminalCollection.stream().anyMatch(el -> symbol.equals(el.value()));
     }
 
     private boolean hasTerminal(Symbol symbol) {
