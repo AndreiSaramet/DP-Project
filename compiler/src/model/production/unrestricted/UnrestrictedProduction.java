@@ -1,6 +1,8 @@
 package model.production.unrestricted;
 
 import model.production.Production;
+import model.production.builder.ProductionBuilder;
+import model.production.builder.ProductionBuilderImpl;
 import model.vocabulary.Symbol;
 
 import java.util.List;
@@ -19,5 +21,9 @@ public interface UnrestrictedProduction extends Production {
 
     static void validateRightSide(final List<? extends Symbol> rightSide) {
         Production.validateRightSide(rightSide);
+    }
+
+    static ProductionBuilder<? extends UnrestrictedProduction> builder() {
+        return new ProductionBuilderImpl<>(UnrestrictedProductionImpl::new);
     }
 }
