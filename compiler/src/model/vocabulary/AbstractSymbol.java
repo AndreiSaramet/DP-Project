@@ -5,7 +5,7 @@ import java.util.Objects;
 public abstract class AbstractSymbol implements Symbol {
     private final String value;
 
-    public AbstractSymbol(final String value) {
+    protected AbstractSymbol(final String value) {
         Objects.requireNonNull(value, "The symbol cannot be null");
         this.value = value;
     }
