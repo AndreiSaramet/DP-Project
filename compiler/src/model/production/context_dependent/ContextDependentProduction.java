@@ -1,6 +1,5 @@
 package model.production.context_dependent;
 
-import model.production.Production;
 import model.production.builder.ProductionBuilder;
 import model.production.builder.ProductionBuilderImpl;
 import model.production.unrestricted.UnrestrictedProduction;
@@ -9,26 +8,29 @@ import model.vocabulary.nonterminal.NonTerminal;
 
 import java.util.List;
 
-public interface ContextDependentProduction extends UnrestrictedProduction {
-    static boolean isInstance(final Production production) {
-        return production instanceof ContextDependentProduction;
+public class ContextDependentProduction extends UnrestrictedProduction {
+    protected ContextDependentProduction(final List<? extends Symbol> leftSide, final List<? extends Symbol> rightSide) {
+        super(leftSide, rightSide);
+
     }
 
-    static void validateLeftSide(final List<? extends Symbol> leftSide) {
-        UnrestrictedProduction.validateLeftSide(leftSide);
+    @Override
+    protected void validateLeftSide(final List<? extends Symbol> leftSide) {
+        super.validateLeftSide(leftSide);
         final boolean hasNoNonTerminal = leftSide
                 .stream()
-                .noneMatch(NonTerminal::isInstance);
+                .noneMatch(symbol -> symbol instanceof NonTerminal);
         if (hasNoNonTerminal) {
             throw new IllegalArgumentException(String.format("The left side of %s must contain at least one %s symbol", ContextDependentProduction.class.getName(), NonTerminal.class.getName()));
         }
     }
 
-    static void validateRightSide(final List<? extends Symbol> rightSide) {
-        UnrestrictedProduction.validateRightSide(rightSide);
+    @Override
+    protected void validateRightSide(final List<? extends Symbol> rightSide) {
+        super.validateRightSide(rightSide);
     }
 
-    static ProductionBuilder<? extends ContextDependentProduction> builder() {
-        return new ProductionBuilderImpl<>(ContextDependentProductionImpl::new);
+    public static ProductionBuilder<? extends ContextDependentProduction> builder() {
+        return new ProductionBuilderImpl<>(ContextDependentProduction::new);
     }
 }
