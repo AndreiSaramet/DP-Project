@@ -18,7 +18,7 @@ public interface ContextDependentProduction extends UnrestrictedProduction {
                 .stream()
                 .noneMatch(NonTerminal::isInstance);
         if (hasNoNonTerminal) {
-            throw new IllegalArgumentException(String.format("Left side of %s must contain at least one %s symbol", ContextDependentProduction.class.getName(), NonTerminal.class.getName()));
+            throw new IllegalArgumentException(String.format("The left side of %s must contain at least one %s symbol", ContextDependentProduction.class.getName(), NonTerminal.class.getName()));
         }
     }
 
