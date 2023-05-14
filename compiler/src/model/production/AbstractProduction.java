@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractProduction implements Production {
-    private final List<? extends Symbol> leftSide;
+    protected final List<? extends Symbol> leftSide;
 
-    private final List<? extends Symbol> rightSide;
+    protected final List<? extends Symbol> rightSide;
 
     public AbstractProduction(final List<? extends Symbol> leftSide, final List<? extends Symbol> rightSide) {
-        Production.validateSide(leftSide);
-        Production.validateSide(rightSide);
+        Production.validateLeftSide(leftSide);
+        Production.validateRightSide(rightSide);
 
         this.leftSide = leftSide;
         this.rightSide = rightSide;
