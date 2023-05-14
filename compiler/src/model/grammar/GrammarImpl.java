@@ -23,6 +23,9 @@ public class GrammarImpl<T extends Production> implements Grammar<T> {
         Objects.requireNonNull(terminalSet, String.format("The set of %s must not be null", Terminal.class.getName()));
         Objects.requireNonNull(productionSet, String.format("The set of %s must not be null", Production.class.getName()));
         Objects.requireNonNull(startNonTerminal, String.format("The start %s must not be null", NonTerminal.class.getName()));
+        if (!nonTerminalSet.contains(startNonTerminal)) {
+            throw new IllegalArgumentException(String.format("The start %s must belong to the %s Collection", NonTerminal.class.getName(), NonTerminal.class.getName()));
+        }
 
         this.nonTerminalCollection = nonTerminalSet;
         this.terminalCollection = terminalSet;
