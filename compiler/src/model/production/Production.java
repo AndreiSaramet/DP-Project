@@ -27,7 +27,11 @@ public interface Production {
         return builder.toString();
     }
 
-    static void validateSide(final List<? extends Symbol> side) {
-        Objects.requireNonNull(side, String.format("A side of a %s must not be null", Production.class.getName()));
+    static void validateLeftSide(final List<? extends Symbol> leftSide) {
+        Objects.requireNonNull(leftSide, String.format("The left side of a %s must not be null", Production.class.getName()));
+    }
+
+    static void validateRightSide(final List<? extends Symbol> rightSide) {
+        Objects.requireNonNull(rightSide, String.format("The right side of a %s must not be null", Production.class.getName()));
     }
 }
