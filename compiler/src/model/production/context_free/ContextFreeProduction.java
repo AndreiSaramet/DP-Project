@@ -1,6 +1,8 @@
 package model.production.context_free;
 
 import model.production.Production;
+import model.production.builder.ProductionBuilder;
+import model.production.builder.ProductionBuilderImpl;
 import model.production.context_dependent.ContextDependentProduction;
 import model.vocabulary.Symbol;
 import model.vocabulary.nonterminal.NonTerminal;
@@ -23,5 +25,9 @@ public interface ContextFreeProduction extends ContextDependentProduction {
 
     static void validateRightSide(final List<? extends Symbol> rightSide) {
         ContextDependentProduction.validateRightSide(rightSide);
+    }
+
+    static ProductionBuilder<? extends ContextFreeProduction> builder() {
+        return new ProductionBuilderImpl<>(ContextFreeProductionImpl::new);
     }
 }
