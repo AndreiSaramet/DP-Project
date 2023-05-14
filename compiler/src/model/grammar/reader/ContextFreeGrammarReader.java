@@ -1,6 +1,6 @@
 package model.grammar.reader;
 
-import model.grammar.Grammar;
+import model.grammar.ContextFreeGrammar;
 import model.grammar.GrammarImpl;
 import model.production.Production;
 import model.production.context_free.ContextFreeProduction;
@@ -16,8 +16,8 @@ import java.util.Collection;
 import java.util.function.Function;
 
 public class ContextFreeGrammarReader {
-    public static Grammar<? extends ContextFreeProduction> readGrammar(final String fileName,
-                                                                       final String symbolsSeparator) {
+    public static ContextFreeGrammar<? extends ContextFreeProduction> readGrammar(final String fileName,
+                                                                                  final String symbolsSeparator) {
         try (final BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             final Collection<? extends NonTerminal> nonTerminals = readNonTerminals(reader, symbolsSeparator);
             final Collection<? extends Terminal> terminals = readTerminals(reader, symbolsSeparator);
@@ -26,9 +26,9 @@ public class ContextFreeGrammarReader {
                     nonTerminals.stream().map(Symbol::value).toList(),
                     terminals.stream().map(Symbol::value).toList());
 
-            return new GrammarImpl<>(nonTerminals, terminals, productions, startNonTerminal);
+            return new ContextFreeGrammar<>(new GrammarImpl<>(nonTerminals, terminals, productions, startNonTerminal));
         } catch (IOException ex) {
-            throw new RuntimeException(String.format("An error occurred while reading from file %s ", fileName), ex);
+            throw new RuntimeException(String.format("while reading from file %s ", fileName), ex);
         }
     }
 
