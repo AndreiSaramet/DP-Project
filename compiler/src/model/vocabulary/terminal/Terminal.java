@@ -1,7 +1,6 @@
 package model.vocabulary.terminal;
 
 import model.vocabulary.AbstractSymbol;
-import model.vocabulary.Symbol;
 
 import java.util.HashMap;
 import java.util.Map;
